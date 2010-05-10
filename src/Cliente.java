@@ -12,6 +12,8 @@ import java.net.SocketException;
 
 public class Cliente {
 
+	
+	
 	public Cliente() throws SocketException
 	{
 		DatagramSocket s = new DatagramSocket(null);
