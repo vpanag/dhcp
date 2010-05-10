@@ -1,0 +1,4 @@
+ DHCP uses UDP as its transport protocol.  DHCP messages from a client
+   to a server are sent to the 'DHCP server' port (67), and DHCP
+   messages from a server to a client are sent to the 'DHCP client' port
+   (68). A server with multiple network address

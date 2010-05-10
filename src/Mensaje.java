@@ -1,6 +1,6 @@
 /**
  * Clase Mensaje 
- * 
+ * Tam total = 232 bytes + options
  * @author Diego Andres Fernandez Vargas <diegofv@gmail.com>
  * @todo definar el tipo y tamano de options ya que es variable
  */
@@ -22,6 +22,9 @@ public class Mensaje {
 	private byte[] file = new byte[128];
 	private String options;
 	
-	
+	public Mensaje()
+	{
+		
+	}
 
 }
