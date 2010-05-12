@@ -45,4 +45,16 @@ public class Cliente {
 		//coje info del mensaje
 		//establece en el cliente el gateware, dns, ip y mask (WINS)
 	}
+	
+	public static void main(String[] args) {
+		try {
+			Cliente xCliente = new Cliente();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+	
 }
