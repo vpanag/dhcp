@@ -20,7 +20,6 @@ public class Mensaje {
 	private byte[] chaddr = new byte[16];
 	private byte[] sname = new byte[64];
 	private byte[] file = new byte[128];
-	private String options;
 	
 	public Mensaje()
 	{

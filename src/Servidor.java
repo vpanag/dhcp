@@ -29,6 +29,14 @@ public class Servidor {
 	}
 	
 	/**
+	 * 
+	 */
+	public void recibirMensaje()
+	{
+		
+	}
+	
+	/**
 	 * Carga la informacion de config de un archivo de texto
 	 */
 	private void cargaInfo()
