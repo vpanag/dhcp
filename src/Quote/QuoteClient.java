@@ -38,17 +38,17 @@ import java.util.*;
 public class QuoteClient {
     public static void main(String[] args) throws IOException {
 
-        if (args.length != 1) {
+        /*if (args.length != 1) {
              System.out.println("Usage: java QuoteClient <hostname>");
              return;
-        }
+        }*/
 
             // get a datagram socket
         DatagramSocket socket = new DatagramSocket();
 
             // send request
         byte[] buf = new byte[256];
-        InetAddress address = InetAddress.getByName(args[0]);
+        InetAddress address = InetAddress.getByName("192.168.1.3");
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4445);
         socket.send(packet);
     
