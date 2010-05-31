@@ -4,7 +4,14 @@
  *
  */
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Servidor {
 
@@ -13,8 +20,9 @@ public class Servidor {
 		try {
 			DatagramSocket dgs = new DatagramSocket();
 			
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
+		} 
+                catch (SocketException e)
+                {
 			e.printStackTrace();
 		}
 		
@@ -41,7 +49,9 @@ public class Servidor {
 	 */
 	private void cargaInfo()
 	{
-		
+    
+
+		//cada ves que cargo hay que llamar a writelog?
 	}
 	
 	/**
