@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 /**
- * Clase Mensaje Tam total = 232 bytes + options
+ * Clase Mensaje Tam total = 232 bytes
  * 
  * @author Diego Andres Fernandez Vargas <diegofv@gmail.com>
- * @todo definar el tipo y tamano de options ya que es variable
  */
 
 public class Mensaje {
