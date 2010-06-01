@@ -5,10 +5,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+/**
+ * Clase Servidor usando puerto 5555 para pruebas
+ * @author Diego
+ *
+ */
 public class Servidor {
 
 	private DatagramSocket socketServidor;
-	//sockete 67
+
 	public Servidor() throws IOException
 	{
 		byte datos[] = new byte[350];
