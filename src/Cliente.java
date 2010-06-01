@@ -9,6 +9,8 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
+import comm.Mensaje;
+
 
 public class Cliente {
 
