@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 
 import java.util.HashMap;
 
-public class Application implements Observer {
+public class DHCP implements Observer {
 
 	protected static byte[] ipInicial;
 	protected static byte[] ipFinal;
@@ -22,13 +22,13 @@ public class Application implements Observer {
 	protected static byte[] lease_time;
 	protected static byte[] renewal_time;
 
-	private static Application instancia = null;
+	private static DHCP instancia = null;
 
 	private static boolean doExit = false;
 
-	public static Application getInstance() {
+	public static DHCP getInstance() {
 		if (instancia == null)
-			instancia = new Application();
+			instancia = new DHCP();
 
 		return instancia;
 	}
@@ -97,7 +97,7 @@ public class Application implements Observer {
 	/**
 	 * Constructor
 	 */
-	public Application() {
+	public DHCP() {
 		System.out.println("");
 	}
 
@@ -243,7 +243,7 @@ public class Application implements Observer {
 		try {
 			c.close();
 		} catch (IOException e) {
-			Application.getInstance().update(null, e);
+			DHCP.getInstance().update(null, e);
 		}
 	}
 	
