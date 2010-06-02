@@ -120,7 +120,7 @@ public class Servidor extends Hilo {
 		}
 		
 		public String toString() {
-			return getIpString() + ", leased until: "
+			return getIpString() + ", leased hasta: "
 			    + dateTime(leased + lease_time);
 		}
 	}
@@ -202,10 +202,10 @@ public class Servidor extends Hilo {
 	
 	private void cargarInfo() 
 	{	
-			DHCP.ipInicial = ipAByte("192.168.1.65");
+			DHCP.ipInicial = ipAByte("192.168.1.75");
 			DHCP.ipFinal = ipAByte("192.168.1.85");
 			DHCP.servidor = ipAByte("192.168.1.25");
-			DHCP.dns = ipAByte("192.168.1.1");
+			DHCP.dns = ipAByte("190.157.2.140");
 			DHCP.mascara = ipAByte("255.255.255.0");
 			DHCP.lease_time = intAByte(120);		
 	}

@@ -115,39 +115,48 @@ public class DHCP implements Observer {
 		return doExit;
 	}
 
-
 	/**
-	 * Lee comandos
+	 * Muestra la tabla de ips con macs en el GUI
 	 */
-	private void readConsole() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String line = null;
-
-		try {
-			while (br != null && (line = br.readLine()) != null && !doExit) {
-				//handleCommand(line);
-			}
-		} catch (IOException e) {
-			update(null, e);
-		} finally {
-			close(br);
+	protected void showTabla() {
+		HashMap<String, Object> list = serv.getTable();
+		
+		update(null, "|******** Tabla de arrendamiento de IPS ********|");
+		for (String mac : list.keySet()) {
+			update(null, mac + " ---- " + list.get(mac));
 		}
+		
+		if (list.size() == 0) {
+			update(null, "Tabla Vacia");
+		}
+		
+		update(null, "|****************************|");
+
+		return;
+	}
+	
+	/**
+	 * Limpia toda la tabla de datos de ips (HASHtable)
+	 */
+	protected void limpiaDatos() 
+	{
+		serv.liberarTodos();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		synchronized (System.out) {
 			if (arg instanceof Throwable) {
-				System.out.println("[" + currentDateTime() + "] "
+				System.out.println("{" + currentDateTime() + "} "
 						+ ((Throwable) arg).getLocalizedMessage());
 			} else {
-				System.out.println("[" + currentDateTime() + "] "
+				System.out.println("{" + currentDateTime() + "} "
 						+ arg.toString());
 			}
 		}
 
 		if (panel2 != null) {
-			panel2.writeMessage("[" + currentDateTime() + "] " + arg.toString());
+			panel2.escribeMensaje("{" + currentDateTime() + "} " + arg.toString());
 		}
 	}
 
