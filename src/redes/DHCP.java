@@ -18,6 +18,7 @@ public class DHCP implements Observer {
 	protected static byte[] ipFinal;
 	protected static byte[] mascara;
 	protected static byte[] servidor;
+	protected static byte[] gateway;
 	protected static byte[] dns;
 	protected static byte[] tiempo_arriendo;
 	protected static byte[] tiempo_renovacion;
@@ -50,6 +51,13 @@ public class DHCP implements Observer {
 	 */
 	public static byte[] getMascara() {
 		return mascara;
+	}
+	
+	/**
+	 * @return gateway
+	 */
+	public static byte[] getGateway() {
+		return gateway;
 	}
 
 	/**
@@ -131,9 +139,22 @@ public class DHCP implements Observer {
 			update(null, "Tabla Vacia");
 		}
 		
-		update(null, "|****************************|");
+		update(null, "|******************************************|");
 
 		return;
+	}
+	
+	/**
+	 * Mostrar configuracion en el gui GUI
+	 */
+	protected void mostrarConf() {
+		update(null, "|********      CONFIGURACION   *****************|");
+		update(null, "Rango         : " + byteAIp(ipInicial) + " - " + byteAIp(ipFinal) );
+		update(null, "Mascara       : " + byteAIp(mascara));
+		update(null, "Gatway        : " + byteAIp(gateway));
+		update(null, "Servidor DHCP : " + byteAIp(servidor));
+		update(null, "DNS           : " + byteAIp(dns) );
+		update(null, "|**********************************************|");
 	}
 	
 	/**
