@@ -2,6 +2,7 @@ package redes;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,23 +22,28 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class UI implements WindowListener, ActionListener,	KeyListener {
+public class UI implements WindowListener, ActionListener {
 	private JFrame window = new JFrame();
 	
+	//PANELES
+	private JPanel pnl_botones = new JPanel(new GridLayout(1,5));
+	private JPanel pnl_text = new JPanel(new BorderLayout());
+	private JPanel pnl_app = new JPanel(new BorderLayout());
+	//TEXTPANE
 	private JTextPane gui_log = new JTextPane();
-	private JTextField gui_cmd = new JTextField();
-	private JPanel pnl_bottom = new JPanel(new BorderLayout());
+	//BOTONES
+	private JButton btn_tabla = new JButton("TABLA");
+	private JButton btn_limpiar = new JButton("LIMPIAR");
 	
-	private JButton btn_cmd = new JButton("CMD");
 	private DHCP parent = null;
 	
 	public UI(DHCP parent) {
 		this.parent = parent;
 		
 		// Listeners
+		btn_limpiar.addActionListener(this);
+		btn_tabla.addActionListener(this);
 		window.addWindowListener(this);
-		btn_cmd.addActionListener(this);
-		gui_cmd.addKeyListener(this);
 		
 		// FRAME
 		window.setSize(800, 640);
@@ -45,21 +51,27 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 		window.setLayout(new BorderLayout());
 		
 		// Textpane
-		gui_log.setText("["  + currentDateTime() + "] DHCP FUNCIONANDO");
+		gui_log.setText("{"  + currentDateTime() + "}");
 		gui_log.setEditable(false);
 		gui_log.setFocusable(false);
 		
-		// Adds
-		pnl_bottom.add(new JLabel(""), BorderLayout.WEST);
-		pnl_bottom.add(gui_cmd);
-		pnl_bottom.add(btn_cmd, BorderLayout.EAST);
+		// Adds Paneles
+		pnl_app.add(pnl_botones, BorderLayout.NORTH);
+		pnl_app.add(pnl_text, BorderLayout.CENTER);
+		
+		pnl_text.add(gui_log, BorderLayout.CENTER);	
+				
+		pnl_botones.add(btn_limpiar);
+		pnl_botones.add(btn_tabla);
+		
 		
 		// Adds
 		window.add(new JScrollPane(gui_log), BorderLayout.CENTER);
-		window.add(pnl_bottom, BorderLayout.NORTH);
+		window.add(pnl_botones, BorderLayout.NORTH);
+		//window.add(pnl_text, BorderLayout.CENTER);
 		
 		window.setVisible(true);
-		gui_cmd.requestFocus();
+		
 	}
 	
 	@Override
@@ -69,24 +81,20 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		//parent.handleCommand(gui_cmd.getText());
-		gui_cmd.setText("");
+	public void actionPerformed(ActionEvent e) {	
+		if(e.getSource() == btn_tabla)	
+		{
+			parent.showTabla();
+		}
+		else if(e.getSource() == btn_limpiar)	
+		{
+			parent.limpiaDatos();
+		}
 		
-		if(parent.doExit()) {
-			window.setVisible(false);
-			parent.salir();
-		}
 	}
 	
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			btn_cmd.doClick();
-		}
-	}
 	
-	protected void writeMessage(String msg) {
+	protected void escribeMensaje(String msg) {
 		synchronized (gui_log) {
 			String newText = gui_log.getText() + "\n" + msg;
 			gui_log.setText(newText);
@@ -98,40 +106,7 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 		synchronized (gui_log) {
 			gui_log.setText("");
 		}
-	}
-	
-	@Override
-	public void windowActivated(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void windowClosed(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void windowIconified(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void windowOpened(WindowEvent e) {
-	} // unused
-	
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}	// unused
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-	}	// unused
-			
+	}	
 	
 	/**
 	 * @return dia hora
@@ -143,5 +118,41 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 		SimpleDateFormat DATE_FORMATER = new SimpleDateFormat(FORMATO_FECHA);			
 		
 		return DATE_FORMATER.format(new Date()) + " " +	TIME_FORMATER.format(new Date());
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
