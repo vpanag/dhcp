@@ -28,7 +28,7 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	private JTextField gui_cmd = new JTextField();
 	private JPanel pnl_bottom = new JPanel(new BorderLayout());
 	
-	private JButton btn_cmd = new JButton("Execute");
+	private JButton btn_cmd = new JButton("CMD");
 	private DHCP parent = null;
 	
 	public UI(DHCP parent) {
@@ -51,7 +51,7 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 		gui_log.setFocusable(false);
 		
 		// Add the elements to a wrapper panel
-		pnl_bottom.add(new JLabel("Command: "), BorderLayout.WEST);
+		pnl_bottom.add(new JLabel(""), BorderLayout.WEST);
 		pnl_bottom.add(gui_cmd);
 		pnl_bottom.add(btn_cmd, BorderLayout.EAST);
 		
