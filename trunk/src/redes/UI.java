@@ -32,46 +32,34 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	private DHCP parent = null;
 	
 	public UI(DHCP parent) {
-		// Store reference to parent
 		this.parent = parent;
 		
-		// Add the several listeners
+		// Listeners
 		window.addWindowListener(this);
 		btn_cmd.addActionListener(this);
 		gui_cmd.addKeyListener(this);
 		
-		// Configure the frame
-		window.setSize(600, 400);
+		// FRAME
+		window.setSize(800, 640);
 		window.setTitle("SERVIDOR DHCP - Proyecto Redes");
 		window.setLayout(new BorderLayout());
 		
-		// Set up the textpane with the log
-		gui_log.setText("["  + currentDateTime() + "] Interface started.");
+		// Textpane
+		gui_log.setText("["  + currentDateTime() + "] DHCP FUNCIONANDO");
 		gui_log.setEditable(false);
 		gui_log.setFocusable(false);
 		
-		// Add the elements to a wrapper panel
+		// Adds
 		pnl_bottom.add(new JLabel(""), BorderLayout.WEST);
 		pnl_bottom.add(gui_cmd);
 		pnl_bottom.add(btn_cmd, BorderLayout.EAST);
 		
-		// Add all elements to the frame
+		// Adds
 		window.add(new JScrollPane(gui_log), BorderLayout.CENTER);
-		window.add(pnl_bottom, BorderLayout.SOUTH);
+		window.add(pnl_bottom, BorderLayout.NORTH);
 		
-		centerWindow();
 		window.setVisible(true);
 		gui_cmd.requestFocus();
-	}
-
-	private void centerWindow() {
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		Point p = new Point();
-		
-		p.x = (d.width - window.getSize().width) / 2;
-		p.y = (d.height - window.getSize().height) / 2;
-		
-		window.setLocation(p);
 	}
 	
 	@Override
@@ -101,9 +89,9 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	protected void writeMessage(String msg) {
 		synchronized (gui_log) {
 			String newText = gui_log.getText() + "\n" + msg;
-	    gui_log.setText(newText);
+			gui_log.setText(newText);
 			gui_log.setCaretPosition(newText.length());
-    }
+		}
 	}
 	
 	protected void clearLog() {
@@ -143,9 +131,7 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 	}	// unused
-	
-	
-		
+			
 	
 	/**
 	 * @return dia hora
