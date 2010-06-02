@@ -19,8 +19,8 @@ public class DHCP implements Observer {
 	protected static byte[] mascara;
 	protected static byte[] servidor;
 	protected static byte[] dns;
-	protected static byte[] lease_time;
-	protected static byte[] renewal_time;
+	protected static byte[] tiempo_arriendo;
+	protected static byte[] tiempo_renovacion;
 
 	private static DHCP instancia = null;
 
@@ -42,7 +42,7 @@ public class DHCP implements Observer {
 	}
 
 	public static byte[] getLeaseTime() {
-		return lease_time;
+		return tiempo_arriendo;
 	}
 
 	/**
@@ -56,7 +56,8 @@ public class DHCP implements Observer {
 	 * @return tiempo para renovar el lease
 	 */
 	public static byte[] getRenewalTime() {
-		return intAByte(100000);
+		//return intAByte(100000);
+		return tiempo_renovacion;
 	}
 
 	/**

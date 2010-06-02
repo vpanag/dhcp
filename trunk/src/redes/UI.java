@@ -2,6 +2,7 @@ package redes;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -30,7 +31,7 @@ public class UI implements WindowListener, ActionListener {
 	private JPanel pnl_text = new JPanel(new BorderLayout());
 	private JPanel pnl_app = new JPanel(new BorderLayout());
 	//TEXTPANE
-	private JTextPane gui_log = new JTextPane();
+	private JTextPane textpane_log = new JTextPane();
 	//BOTONES
 	private JButton btn_tabla = new JButton("TABLA");
 	private JButton btn_limpiar = new JButton("LIMPIAR");
@@ -46,27 +47,29 @@ public class UI implements WindowListener, ActionListener {
 		window.addWindowListener(this);
 		
 		// FRAME
-		window.setSize(800, 640);
+		window.setSize(900, 800);
 		window.setTitle("SERVIDOR DHCP - Proyecto Redes");
 		window.setLayout(new BorderLayout());
 		
 		// Textpane
-		gui_log.setText("{"  + currentDateTime() + "}");
-		gui_log.setEditable(false);
-		gui_log.setFocusable(false);
+		textpane_log.setText("{"  + currentDateTime() + "}");
+		Font font = new Font("Serif", Font.PLAIN, 18);
+		textpane_log.setFont(font);
+		textpane_log.setEditable(false);
+		textpane_log.setFocusable(false);
 		
 		// Adds Paneles
 		pnl_app.add(pnl_botones, BorderLayout.NORTH);
 		pnl_app.add(pnl_text, BorderLayout.CENTER);
 		
-		pnl_text.add(gui_log, BorderLayout.CENTER);	
+		pnl_text.add(textpane_log, BorderLayout.CENTER);	
 				
 		pnl_botones.add(btn_limpiar);
 		pnl_botones.add(btn_tabla);
 		
 		
 		// Adds
-		window.add(new JScrollPane(gui_log), BorderLayout.CENTER);
+		window.add(new JScrollPane(textpane_log), BorderLayout.CENTER);
 		window.add(pnl_botones, BorderLayout.NORTH);
 		//window.add(pnl_text, BorderLayout.CENTER);
 		
@@ -95,16 +98,16 @@ public class UI implements WindowListener, ActionListener {
 	
 	
 	protected void escribeMensaje(String msg) {
-		synchronized (gui_log) {
-			String newText = gui_log.getText() + "\n" + msg;
-			gui_log.setText(newText);
-			gui_log.setCaretPosition(newText.length());
+		synchronized (textpane_log) {
+			String newText = textpane_log.getText() + "\n" + msg;
+			textpane_log.setText(newText);
+			textpane_log.setCaretPosition(newText.length());
 		}
 	}
 	
 	protected void clearLog() {
-		synchronized (gui_log) {
-			gui_log.setText("");
+		synchronized (textpane_log) {
+			textpane_log.setText("");
 		}
 	}	
 	

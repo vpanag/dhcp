@@ -96,9 +96,6 @@ public class Servidor extends Hilo {
 			leased = Long.valueOf(leased_timestamp);
 		}
 		
-		/**
-		 * @return the ip adress of this lease.
-		 */
 		public byte[] getIp() {
 			return ip_byte;
 		}
@@ -120,7 +117,7 @@ public class Servidor extends Hilo {
 		}
 		
 		public String toString() {
-			return getIpString() + ", leased hasta: "
+			return getIpString() + ", asignada hasta: "
 			    + dateTime(leased + lease_time);
 		}
 	}
@@ -145,7 +142,7 @@ public class Servidor extends Hilo {
 				}
 				
 				for (String mac : eliminar) {
-					mensaje("Lease " + direcciones.get(mac).getIpString() + " vencida");
+					mensaje("Arrendamiento de : " + direcciones.get(mac).getIpString() + " expirado");
 					direcciones.remove(mac);
 				}
 			}
@@ -207,7 +204,8 @@ public class Servidor extends Hilo {
 			DHCP.servidor = ipAByte("192.168.1.25");
 			DHCP.dns = ipAByte("190.157.2.140");
 			DHCP.mascara = ipAByte("255.255.255.0");
-			DHCP.lease_time = intAByte(120);		
+			DHCP.tiempo_arriendo = intAByte(25);
+			DHCP.tiempo_renovacion = intAByte(25);
 	}
 	
 	@Override
