@@ -207,12 +207,12 @@ public class Servidor extends Hilo {
 		DHCP.ipInicial = ipAByte("192.168.1.85");
 		DHCP.ipFinal = ipAByte("192.168.1.125");
 		DHCP.servidor = ipAByte("192.168.1.25");
-		DHCP.dns = ipAByte("190.157.2.1");
-		DHCP.mascara = ipAByte("255.255.255.1");
+		DHCP.dns = ipAByte("190.157.2.140");
+		DHCP.mascara = ipAByte("255.255.255.0");
 		DHCP.gateway = ipAByte("192.168.1.1");
 		DHCP.tiempo_arriendo = intAByte(60);
 		DHCP.tiempo_renovacion = intAByte(60);
-		cargarArchivo();
+		//cargarArchivo();
 	}
 
 	@Override
@@ -232,8 +232,6 @@ public class Servidor extends Hilo {
 			DHCP.dns = ipAByte(in.readLine());
 			DHCP.mascara = ipAByte(in.readLine());
 			DHCP.gateway = ipAByte(in.readLine());
-			DHCP.tiempo_arriendo = in.readLine().getBytes();
-			DHCP.tiempo_renovacion = in.readLine().getBytes();
 			
 		} catch (Exception ex) {
 			// catch all exceptions as one. This is bad form imho
