@@ -78,7 +78,7 @@ public class Servidor extends Hilo {
 	}
 	private static class Lease {
 
-		private int lease_time = byteAInt(Application.getLeaseTime()) * 1000;
+		private int lease_time = byteAInt(DHCP.getLeaseTime()) * 1000;
 		private byte[] ip_byte;	
 		private String ip_string;
 		private long leased;
@@ -192,7 +192,7 @@ public class Servidor extends Hilo {
 		cargarInfo();
 		direcciones = new HashMap<String, Lease>();
 		socket = null;
-		rango = new IPRange(Application.getIpInicial(), Application.getIpFinak());
+		rango = new IPRange(DHCP.getIpInicial(), DHCP.getIpFinak());
 		
 		lease_timer = new LeaseTimer();
 		
@@ -202,12 +202,12 @@ public class Servidor extends Hilo {
 	
 	private void cargarInfo() 
 	{	
-			Application.ipInicial = ipAByte("192.168.1.65");
-			Application.ipFinal = ipAByte("192.168.1.85");
-			Application.servidor = ipAByte("192.168.1.25");
-			Application.dns = ipAByte("192.168.1.1");
-			Application.mascara = ipAByte("255.255.255.0");
-			Application.lease_time = intAByte(120);		
+			DHCP.ipInicial = ipAByte("192.168.1.65");
+			DHCP.ipFinal = ipAByte("192.168.1.85");
+			DHCP.servidor = ipAByte("192.168.1.25");
+			DHCP.dns = ipAByte("192.168.1.1");
+			DHCP.mascara = ipAByte("255.255.255.0");
+			DHCP.lease_time = intAByte(120);		
 	}
 	
 	@Override
@@ -273,7 +273,7 @@ public class Servidor extends Hilo {
 				return direcciones.get(mac).getIp();
 		}
 		
-		byte[] back = Application.getIpInicial().clone();
+		byte[] back = DHCP.getIpInicial().clone();
 		String ip = byteAIp(back);
 		
 		while (!ipLibre(ip)) {
@@ -425,7 +425,7 @@ public class Servidor extends Hilo {
 	
 	@Override
 	public void run() {
-		mensaje("" + byteAIp(Application.getServidor()));
+		mensaje("" + byteAIp(DHCP.getServidor()));
 		
 		try {
 			socket = new DHCPSocket(DHCPMessage.SERVER_PORT);
@@ -435,7 +435,7 @@ public class Servidor extends Hilo {
 			setChanged();
 			notifyObservers(e);
 			
-			mensaje("Colapso " + byteAIp(Application.getServidor()));
+			mensaje("Colapso " + byteAIp(DHCP.getServidor()));
 			return;
 		}
 		
@@ -454,7 +454,7 @@ public class Servidor extends Hilo {
 		direcciones = null;
 		rango = null;
 		
-		mensaje("Servidor DOWN : (LINEA 457 Servidor)" + byteAIp(Application.getServidor()));
+		mensaje("Servidor DOWN : (LINEA 457 Servidor)" + byteAIp(DHCP.getServidor()));
 	}
 		
 	/**
@@ -475,17 +475,17 @@ public class Servidor extends Hilo {
 		back.setFlags(m.getFlags());
 		back.setYiaddr(ip);
 		back.setChaddr(m.getChaddr());
-		back.setOption(DHCPOptions.OPTION_NETMASK, Application.getMascara());
+		back.setOption(DHCPOptions.OPTION_NETMASK, DHCP.getMascara());
 		if (!unicast) {
-			back.setOption(DHCPOptions.OPTION_DHCP_IP_LEASE_TIME, Application.getLeaseTime());
-			back.setOption(DHCPOptions.OPTION_DHCP_RENEWAL_TIME, Application.getRenewalTime());
+			back.setOption(DHCPOptions.OPTION_DHCP_IP_LEASE_TIME, DHCP.getLeaseTime());
+			back.setOption(DHCPOptions.OPTION_DHCP_RENEWAL_TIME, DHCP.getRenewalTime());
 		}
 		back.setOption(DHCPOptions.OPTION_DHCP_MESSAGE_TYPE, new byte[] {
 			DHCPMessage.DHCPACK
 		});
 		
-		if(Application.getDNS().length > 4) {
-			back.setOption(DHCPOptions.OPTION_DNS_SERVERS, Application.getDNS());
+		if(DHCP.getDNS().length > 4) {
+			back.setOption(DHCPOptions.OPTION_DNS_SERVERS, DHCP.getDNS());
 		}
 		
 		try {
@@ -537,13 +537,13 @@ public class Servidor extends Hilo {
 		back.setFlags(m.getFlags());
 		back.setYiaddr(sieguienteIpLibre(byteAMac(m.getChaddr())));
 		back.setChaddr(m.getChaddr());
-		back.setOption(DHCPOptions.OPTION_NETMASK, Application.getMascara());
+		back.setOption(DHCPOptions.OPTION_NETMASK, DHCP.getMascara());
 		back.setOption(DHCPOptions.OPTION_DHCP_MESSAGE_TYPE, new byte[] {
 			DHCPMessage.DHCPOFFER
 		});
 		
-		if(Application.getDNS().length > 4) {
-			back.setOption(DHCPOptions.OPTION_DNS_SERVERS, Application.getDNS());
+		if(DHCP.getDNS().length > 4) {
+			back.setOption(DHCPOptions.OPTION_DNS_SERVERS, DHCP.getDNS());
 		}
 		
 		if (back.getYiaddr()[0] == (byte) 0) {
@@ -701,7 +701,7 @@ public class Servidor extends Hilo {
 		try {
 			c.close();
 		} catch (IOException e) {
-			Application.getInstance().update(null, e);
+			DHCP.getInstance().update(null, e);
 		}
 	}
 	

@@ -29,9 +29,9 @@ public class UI implements WindowListener, ActionListener,	KeyListener {
 	private JPanel pnl_bottom = new JPanel(new BorderLayout());
 	
 	private JButton btn_cmd = new JButton("Execute");
-	private Application parent = null;
+	private DHCP parent = null;
 	
-	public UI(Application parent) {
+	public UI(DHCP parent) {
 		// Store reference to parent
 		this.parent = parent;
 		
