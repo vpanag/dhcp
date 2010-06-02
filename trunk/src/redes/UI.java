@@ -27,14 +27,15 @@ public class UI implements WindowListener, ActionListener {
 	private JFrame window = new JFrame();
 	
 	//PANELES
-	private JPanel pnl_botones = new JPanel(new GridLayout(1,5));
-	private JPanel pnl_text = new JPanel(new BorderLayout());
-	private JPanel pnl_app = new JPanel(new BorderLayout());
+	private JPanel botones_pnl = new JPanel(new GridLayout(1,5));
+	private JPanel text_pnl = new JPanel(new BorderLayout());
+	private JPanel app_pnl = new JPanel(new BorderLayout());
 	//TEXTPANE
-	private JTextPane textpane_log = new JTextPane();
+	private JTextPane log_textpane = new JTextPane();
 	//BOTONES
-	private JButton btn_tabla = new JButton("TABLA");
-	private JButton btn_limpiar = new JButton("LIMPIAR");
+	private JButton tabla_btn = new JButton("Tabla");
+	private JButton limpiar_btn = new JButton("Limpiar");
+	private JButton conf_btn = new JButton("Configuracion");
 	
 	private DHCP parent = null;
 	
@@ -42,8 +43,9 @@ public class UI implements WindowListener, ActionListener {
 		this.parent = parent;
 		
 		// Listeners
-		btn_limpiar.addActionListener(this);
-		btn_tabla.addActionListener(this);
+		limpiar_btn.addActionListener(this);
+		tabla_btn.addActionListener(this);
+		conf_btn.addActionListener(this);
 		window.addWindowListener(this);
 		
 		// FRAME
@@ -52,25 +54,26 @@ public class UI implements WindowListener, ActionListener {
 		window.setLayout(new BorderLayout());
 		
 		// Textpane
-		textpane_log.setText("{"  + currentDateTime() + "}");
+		log_textpane.setText("{"  + currentDateTime() + "}");
 		Font font = new Font("Serif", Font.PLAIN, 18);
-		textpane_log.setFont(font);
-		textpane_log.setEditable(false);
-		textpane_log.setFocusable(false);
+		log_textpane.setFont(font);
+		log_textpane.setEditable(false);
+		
 		
 		// Adds Paneles
-		pnl_app.add(pnl_botones, BorderLayout.NORTH);
-		pnl_app.add(pnl_text, BorderLayout.CENTER);
+		app_pnl.add(botones_pnl, BorderLayout.NORTH);
+		app_pnl.add(text_pnl, BorderLayout.CENTER);
 		
-		pnl_text.add(textpane_log, BorderLayout.CENTER);	
+		text_pnl.add(log_textpane, BorderLayout.CENTER);	
 				
-		pnl_botones.add(btn_limpiar);
-		pnl_botones.add(btn_tabla);
+		botones_pnl.add(limpiar_btn);
+		botones_pnl.add(tabla_btn);
+		botones_pnl.add(conf_btn);
 		
 		
 		// Adds
-		window.add(new JScrollPane(textpane_log), BorderLayout.CENTER);
-		window.add(pnl_botones, BorderLayout.NORTH);
+		window.add(new JScrollPane(log_textpane), BorderLayout.CENTER);
+		window.add(botones_pnl, BorderLayout.NORTH);
 		//window.add(pnl_text, BorderLayout.CENTER);
 		
 		window.setVisible(true);
@@ -85,29 +88,32 @@ public class UI implements WindowListener, ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
-		if(e.getSource() == btn_tabla)	
+		if(e.getSource() == tabla_btn)	
 		{
 			parent.showTabla();
 		}
-		else if(e.getSource() == btn_limpiar)	
+		else if(e.getSource() == limpiar_btn)	
 		{
 			parent.limpiaDatos();
 		}
-		
+		else if(e.getSource() == conf_btn)	
+		{
+			parent.mostrarConf();
+		}
 	}
 	
 	
 	protected void escribeMensaje(String msg) {
-		synchronized (textpane_log) {
-			String newText = textpane_log.getText() + "\n" + msg;
-			textpane_log.setText(newText);
-			textpane_log.setCaretPosition(newText.length());
+		synchronized (log_textpane) {
+			String newText = log_textpane.getText() + "\n" + msg;
+			log_textpane.setText(newText);
+			log_textpane.setCaretPosition(newText.length());
 		}
 	}
 	
 	protected void clearLog() {
-		synchronized (textpane_log) {
-			textpane_log.setText("");
+		synchronized (log_textpane) {
+			log_textpane.setText("");
 		}
 	}	
 	
